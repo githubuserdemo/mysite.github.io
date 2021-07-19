@@ -1,0 +1,25 @@
+name: pages-ci
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v2
+      - name: setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+      - run: python main.py
+      - name: Push changes to GitHub
+        run: |
+            git add .
+            git commit -m "some few changes"
+            git push origin main
+      
